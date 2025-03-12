@@ -9,7 +9,7 @@ This means that if you search for “annual report 2024”, both of the files be
 - /Users/joe/Downloads/Annual **Report**s/for review/**2024**-version1.pdf
 - /Users/joe/Desktop/Shareholder **report** (**Annual**) - **2024**.docx
 
-Searches are case-insensitive, and the order in which you enter your search terms is not important. The search terms can be plain strings or [regular expressions](https://regex101.com/r/QmVP21/1).
+Searches are case-insensitive, and the order in which you enter your search terms is not important. The search terms can be plain strings or [regular expressions](https://regex101.com/r/QmVP21/1). The workflow **does not rely on Spotlight** to provide its results.
 
 ## Configuration
 
