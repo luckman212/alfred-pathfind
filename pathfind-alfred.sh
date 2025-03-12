@@ -1,5 +1,7 @@
 #!/bin/zsh --no-rcs
 
+zmodload zsh/datetime
+
 # prereq check
 [[ -n $DEPS ]] || exit 1
 DEPS_ARR=("${(@z)DEPS}")
@@ -42,22 +44,30 @@ if [[ -z $PATHFIND_PATHS ]]; then
 fi
 
 # path prefix hiders
-mapfile -t HIDDEN_PREFIXES_ARR <<< "$HIDDEN_PREFIXES"
+HIDDEN_PREFIXES_ARR=("${(@f)HIDDEN_PREFIXES}")
 
 # item_depth = the number of directories ABOVE the item
 # if pdd == 0 then show full path in subtitle
+export START_TIME=$EPOCHREALTIME
 ./pathfind.sh "$@" |
 jq \
 	--null-input \
-	--raw-input '
+	--raw-input \
+	--argjson st "$START_TIME" '
 	($ENV.PATH_DISPLAY_DEPTH // 0 | tonumber) as $pdd |
-	if $ENV.DEBUG then debug("🐞PATH_DISPLAY_DEPTH=\($pdd) MAX_DEPTH=\($ENV.MAX_DEPTH)") else . end |
+	($ENV.DEBUG // 0 | tonumber == 1) as $dbg |
 
 	($ARGS.positional | map(
 		sub("^\\s+";"") | sub("\\s+$";"") | sub("/$";"") |
 		select(length>0))) as $hide_pfx |
 
-	debug("🐞pfx", $hide_pfx) |
+	if $dbg then
+		debug("🐞debugging enabled") |
+		debug("🐞PATH_DISPLAY_DEPTH=\($pdd)") |
+		debug("🐞MAX_DEPTH=\($ENV.MAX_DEPTH)") |
+		debug("🐞ALLOW_XDEV=\($ENV.ALLOW_XDEV)") |
+		debug("🐞hide_pfx:", $hide_pfx)
+	else . end |
 
 	[inputs] | map(
 	(sub("/$";"") | sub("^\($ENV.HOME)/";"~/")) as $fqpn |
@@ -106,3 +116,8 @@ jq \
 			}
 		}] end)
 	}' --args "${HIDDEN_PREFIXES_ARR[@]}"
+
+if (( DEBUG == 1 )); then
+	ELAPSED=$(( (EPOCHREALTIME-START_TIME) * 1000))
+	printf >&2 '🐞script finished in %.0f ms\n' $ELAPSED
+fi
