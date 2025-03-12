@@ -44,6 +44,7 @@ if [[ -n $PATHFIND_EXCLUDE_PATHS ]]; then
 fi
 
 _multiple_args() {
+	(( DEBUG == 1 )) && echo >&2 "🐞multiple search term"
 	#hyperfine benchmark shows no improvement with LC_ALL=C, removed
 	fd 2>/dev/null \
 		--color never \
@@ -68,6 +69,7 @@ _multiple_args() {
 
 # if we only have 1 search term, perform the matching with fd directly to speed execution
 _single_arg() {
+	(( DEBUG == 1 )) && echo >&2 "🐞single search term"
 	FD_ARGS+=( --ignore-case )
 	fd 2>/dev/null \
 		--color never \
