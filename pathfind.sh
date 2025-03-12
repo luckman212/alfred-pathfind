@@ -9,7 +9,7 @@ FD_ARGS=()
 case $ALLOW_XDEV in
 	0) FD_ARGS+=( --one-file-system --no-follow );;
 	1) FD_ARGS+=( --follow );;
-	*) exit 1;; # ???
+	*) : ;; #unset, use default (running from shell?)
 esac
 
 #files, dirs or both
@@ -43,24 +43,41 @@ if [[ -n $PATHFIND_EXCLUDE_PATHS ]]; then
 	done
 fi
 
-#hyperfine benchmark shows no improvement
-#LC_ALL=C
-fd 2>/dev/null \
-	--color never \
-	--absolute-path \
-	"${FD_ARGS[@]}" |
-gawk -v SEARCH_KEYWORDS="$*" '
-BEGIN {
-	IGNORECASE = 1;
-	n = split(SEARCH_KEYWORDS, words, " ");
-	for (i = 1; i <= n; i++) {
-		searchterms[toupper(words[i])] = 1;
+_multiple_args() {
+	#hyperfine benchmark shows no improvement with LC_ALL=C, removed
+	fd 2>/dev/null \
+		--color never \
+		--absolute-path \
+		"${FD_ARGS[@]}" |
+	gawk -v kw="${SEARCH_KEYWORDS[*]}" '
+	BEGIN {
+		IGNORECASE = 1;
+		n = split(kw, words, " ");
+		for (i = 1; i <= n; i++) {
+			searchterms[toupper(words[i])] = 1;
+		}
 	}
+	{
+		line = toupper($0);
+		for (word in searchterms) {
+			if (line !~ word) { next; }
+		}
+		print $0;
+	}'
 }
-{
-	line = toupper($0);
-	for (word in searchterms) {
-		if (line !~ word) { next; }
-	}
-	print $0;
-}'
+
+# if we only have 1 search term, perform the matching with fd directly to speed execution
+_single_arg() {
+	FD_ARGS+=( --ignore-case )
+	fd 2>/dev/null \
+		--color never \
+		--absolute-path \
+		"${FD_ARGS[@]}" -- "${SEARCH_KEYWORDS[1]}"
+}
+
+SEARCH_KEYWORDS=(${=1})
+
+case ${#SEARCH_KEYWORDS} in
+	1) _single_arg "$1";;
+	*) _multiple_args "$@";;
+esac
