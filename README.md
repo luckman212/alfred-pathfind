@@ -40,7 +40,7 @@ The workflow requires a few small binaries to work its magic:
 - `gawk` for case-insensitive pattern/regex matching of filenames
 - `jq` for JSON processing
 
-The workflow will warn you if these are not detected, and offer to install them for you. If you prefer, both can be installed with a single [Homebrew](https://brew.sh/) command run from Terminal:
+The workflow will warn you if these are not detected, and offer to install them for you. If you prefer, they can be installed with a single [Homebrew](https://brew.sh/) command run from Terminal:
 
 ```
 brew install fd gawk jq
