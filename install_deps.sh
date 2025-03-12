@@ -1,6 +1,9 @@
-#!/usr/bin/env bash
+#!/bin/zsh --no-rcs
 
-if hash &>/dev/null fd gawk jq ; then
+[[ -n $DEPS ]] || exit 1
+DEPS_ARR=("${(@z)DEPS}")
+
+if hash &>/dev/null ${DEPS_ARR[@]} ; then
 	osascript <<-EOS 2>/dev/null
 	tell application id "com.runningwithcrayons.Alfred"
 		run trigger "entrypoint" in workflow "$alfred_workflow_bundleid" with argument ""
@@ -23,16 +26,15 @@ fi
 
 if [[ -z $SPID ]]; then
 	#echo >&2 "🍺installing components"
-	nohup -- brew install fd gawk jq >/dev/null 2>&1 &
+	nohup -- brew install ${DEPS_ARR[@]} >/dev/null 2>&1 &
 	SPID=$!
-	disown $SPID
 fi
 
 cat <<-EOJ
 	{ "rerun": 0.75,
 		"variables": { "SPID": "$SPID" },
 		"items": [{
-			"title": "Installing required components...",
+			"title": "Installing required components ($DEPS)...",
 			"subtitle": "Please wait, workflow will auto-refresh when ready",
 			"icon": { "path": "./brew.png" },
 			"valid": false,

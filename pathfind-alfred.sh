@@ -1,7 +1,9 @@
-#!/usr/bin/env bash
+#!/bin/zsh --no-rcs
 
 # prereq check
-if ! hash fd gawk jq &>/dev/null; then
+[[ -n $DEPS ]] || exit 1
+DEPS_ARR=("${(@z)DEPS}")
+if ! hash ${DEPS_ARR[@]} &>/dev/null; then
 	osascript <<-EOS 2>/dev/null
 	tell application id "com.runningwithcrayons.Alfred"
 		run trigger "deps" in workflow "$alfred_workflow_bundleid"
