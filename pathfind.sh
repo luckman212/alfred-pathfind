@@ -1,6 +1,4 @@
-#!/usr/bin/env bash
-
-# ln -siv $PWD/pathfind.sh ~/Sync/Scripts
+#!/bin/zsh --no-rcs
 
 case $1 in
 	-h|--help|'') echo "Usage: ${0##*/} <word1> [word2...]"; exit;;
@@ -31,14 +29,14 @@ fi
 if [[ -z $PATHFIND_PATHS ]]; then
 	FD_ARGS+=( --search-path "$PWD" )
 else
-	mapfile -t PATHFIND_PATHS_ARR <<< "$PATHFIND_PATHS"
+	PATHFIND_PATHS_ARR=("${(@f)PATHFIND_PATHS}")
 	for p in "${PATHFIND_PATHS_ARR[@]}"; do
 		pe=$(eval echo "$p")
 		FD_ARGS+=( --search-path "$pe" )
 	done
 fi
 if [[ -n $PATHFIND_EXCLUDE_PATHS ]]; then
-	mapfile -t PATHFIND_EXCLUDE_PATHS_ARR <<< "$PATHFIND_EXCLUDE_PATHS"
+	PATHFIND_EXCLUDE_PATHS_ARR=("${(@f)PATHFIND_EXCLUDE_PATHS}")
 	for p in "${PATHFIND_EXCLUDE_PATHS_ARR[@]}"; do
 		pe=$(eval echo "$p")
 		FD_ARGS+=( --exclude "$pe" )
