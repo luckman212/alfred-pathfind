@@ -96,7 +96,10 @@ jq \
 		icon: { type: "fileicon", path: $fqpn },
 		quicklookurl: $fqpn,
 		mods: {
-			cmd: { action: "reveal", subtitle: "↩ reveal in Finder" },
+			cmd: {
+				variables: { action: "reveal" },
+				subtitle: "↩ reveal in Finder"
+			},
 			alt: { subtitle: "", valid: false },
 			ctrl: { valid: false }
 		}
