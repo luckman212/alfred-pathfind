@@ -1,15 +1,52 @@
 #!/bin/zsh --no-rcs
 
+SCRIPT_DIR="${0:A:h}"
+
+_getAlfredWorkflowCfg() {
+	WF_VARS=( ALLOW_XDEV MAX_DEPTH PATHFIND_PATHS PATHFIND_EXCLUDE_PATHS )
+	JSON=$(plutil -convert json -o - -- "${SCRIPT_DIR}/info.plist" 2>/dev/null)
+	for v in ${WF_VARS[@]}; do
+		unset VALUE
+		if ! VALUE=$(plutil -extract $v raw "${SCRIPT_DIR}/prefs.plist" 2>/dev/null); then
+			VALUE=$(jq --raw-output --arg v "$v" <<< "$JSON" '
+				.userconfigurationconfig | map(select(.variable==$v))[0] |
+				.config |
+				if .defaultvalue then
+					.defaultvalue
+				elif .default then
+					.default
+				else "" end')
+		fi
+		typeset -g "${v}"=$VALUE
+	done
+}
+
 case $1 in
 	-h|--help|'') echo "Usage: ${0##*/} <word1> [word2...]"; exit;;
 esac
 
+# if running from an external shell, populate environment from WF config
+[[ -z $alfred_workflow_uid ]] && _getAlfredWorkflowCfg
+
 FD_ARGS=()
+MD_QUERY=()
+if (( $# == 1 )); then
+	SUPPLIED_ARGS=(${=1})
+else
+	SUPPLIED_ARGS=( $@ )
+fi
+for a in "${SUPPLIED_ARGS[@]}"; do
+	if [[ $a == "in:"* ]]; then
+		[[ ${a#in:} != "" ]] && MD_QUERY+=( 'kMDItemTextContent == "'${a#in:}'"c' '&&' )
+	else
+		SEARCH_KEYWORDS+=( $a )
+	fi
+done
+MD_QUERY[-1]=() # remove trailing '&&'
 
 case $ALLOW_XDEV in
-	0) FD_ARGS+=( --one-file-system --no-follow );;
 	1) FD_ARGS+=( --follow );;
-	*) : ;; #unset, use default (running from shell?)
+	0|*) FD_ARGS+=( --one-file-system --no-follow );; #if unset, use default (running from shell?)
 esac
 
 #files, dirs or both
@@ -43,13 +80,7 @@ if [[ -n $PATHFIND_EXCLUDE_PATHS ]]; then
 	done
 fi
 
-_multiple_args() {
-	(( DEBUG == 1 )) && echo >&2 "🐞multiple search term"
-	#hyperfine benchmark shows no improvement with LC_ALL=C, removed
-	fd 2>/dev/null \
-		--color never \
-		--absolute-path \
-		"${FD_ARGS[@]}" |
+_filterWithGawk() {
 	gawk -v kw="${SEARCH_KEYWORDS[*]}" '
 	BEGIN {
 		IGNORECASE = 1;
@@ -67,6 +98,27 @@ _multiple_args() {
 	}'
 }
 
+# ref: mdimport -X
+_mdfind() {
+	MD_ARGS=()
+	for p in "${PATHFIND_PATHS_ARR[@]}"; do
+		MD_ARGS+=( -onlyin ${~p} )
+	done
+	(( DEBUG == 1 )) && set -x
+	mdfind 2>/dev/null "${MD_ARGS[@]}" "${MD_QUERY[@]}"
+	(( DEBUG == 1 )) && set +x
+}
+
+_multiple_args() {
+	(( DEBUG == 1 )) && echo >&2 "🐞multiple search terms"
+	#hyperfine benchmark shows no improvement with LC_ALL=C, removed
+	fd 2>/dev/null \
+		--color never \
+		--absolute-path \
+		"${FD_ARGS[@]}" |
+	_filterWithGawk
+}
+
 # if we only have 1 search term, perform the matching with fd directly to speed execution
 _single_arg() {
 	(( DEBUG == 1 )) && echo >&2 "🐞single search term"
@@ -77,9 +129,12 @@ _single_arg() {
 		"${FD_ARGS[@]}" -- "${SEARCH_KEYWORDS[1]}"
 }
 
-SEARCH_KEYWORDS=(${=1})
-
-case ${#SEARCH_KEYWORDS} in
-	1) _single_arg "$1";;
-	*) _multiple_args "$@";;
-esac
+if [[ ${#MD_QUERY} -gt 0 ]]; then
+	_mdfind | _filterWithGawk
+else
+	case ${#SEARCH_KEYWORDS} in
+		0) echo >&2 "enter at least 1 search term"; exit 1;;
+		1) _single_arg "${SEARCH_KEYWORDS[1]}";;
+		*) _multiple_args "${SEARCH_KEYWORDS[@]}";;
+	esac
+fi
