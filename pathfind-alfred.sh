@@ -102,7 +102,15 @@ jq \
 		}
 	}) as $results |
 
+	(if (now-$st)>3 and ($ENV.IGNORE_SLOW|tonumber) != 1 then [{
+		title: "Script execution time is slow! (\((now-$st)*1000|floor) ms)",
+		icon: { path: "turtle.png" },
+		subtitle: "try reducing the search scope or depth",
+		valid: false
+	}]
+	else [] end) as $time |
 	{ items: (
+		$time +
 		if ($results|length)>0 then $results
 		else [{
 			title: "Nothing found!",
@@ -119,5 +127,5 @@ jq \
 
 if (( DEBUG == 1 )); then
 	ELAPSED=$(( (EPOCHREALTIME-START_TIME) * 1000))
-	printf >&2 '🐞script finished in %.0f ms\n' $ELAPSED
+	printf >&2 '🐞script completed in %.0f ms\n' $ELAPSED
 fi
