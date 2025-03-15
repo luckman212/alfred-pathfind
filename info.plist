@@ -595,36 +595,15 @@
 				<key>concurrently</key>
 				<false/>
 				<key>escaping</key>
-				<integer>102</integer>
+				<integer>0</integer>
 				<key>script</key>
-				<string>if [[ ! -d /usr/local/bin ]]; then
-
-osascript &lt;&lt;EOS
-do shell script "sh link.sh $USER" with administrator privileges with prompt "$alfred_workflow_name is trying to install its commandline tool at /usr/local/bin"
-
-EOS
-
-fi
-
-if ln -sf $PWD/pathfind.sh /usr/local/bin/pathfind ; then
-
-cat &lt;&lt;EOJ
-{
-  "alfredworkflow": {
-    "variables": {
-      "success": 1
-    }
-  }
-}
-EOJ
-
-fi</string>
+				<string></string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
-				<string></string>
+				<string>install_cli.sh</string>
 				<key>type</key>
-				<integer>11</integer>
+				<integer>8</integer>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.action.script</string>
@@ -655,7 +634,7 @@ fi</string>
 				<array>
 					<dict>
 						<key>inputstring</key>
-						<string>{var:success}</string>
+						<string>{var:cli_result}</string>
 						<key>matchcasesensitive</key>
 						<false/>
 						<key>matchmode</key>
@@ -1384,7 +1363,7 @@ brew install fd gawk jq
 	<key>variablesdontexport</key>
 	<array/>
 	<key>version</key>
-	<string>1.2.2</string>
+	<string>1.2.3</string>
 	<key>webaddress</key>
 	<string>https://github.com/luckman212/alfred-pathfind</string>
 </dict>
