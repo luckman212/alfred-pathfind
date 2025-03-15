@@ -826,12 +826,29 @@ fi</string>
 			<key>config</key>
 			<dict>
 				<key>text</key>
-				<string>Search for '{query}' in PathFind</string>
+				<string>Search for '{query}' using PathFind</string>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.trigger.fallback</string>
 			<key>uid</key>
 			<string>B712E43D-23A1-466C-BA53-E6B497DEFECC</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argument</key>
+				<string>https://www.alfredforum.com/topic/22912-somewhere-between-a-bug-and-a-feature-request-support-placeholders-in-fallback-search-object/</string>
+				<key>cleardebuggertext</key>
+				<false/>
+				<key>processoutputs</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.debug</string>
+			<key>uid</key>
+			<string>286A1050-9059-4700-B859-E11FF29323F2</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -997,6 +1014,15 @@ brew install fd gawk jq
 			<real>1450</real>
 			<key>ypos</key>
 			<real>150</real>
+		</dict>
+		<key>286A1050-9059-4700-B859-E11FF29323F2</key>
+		<dict>
+			<key>colorindex</key>
+			<integer>1</integer>
+			<key>xpos</key>
+			<real>140</real>
+			<key>ypos</key>
+			<real>545</real>
 		</dict>
 		<key>2C86530E-0A51-4B93-B913-B7B744976C21</key>
 		<dict>
@@ -1308,21 +1334,27 @@ brew install fd gawk jq
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>default</key>
-				<false/>
-				<key>required</key>
-				<false/>
-				<key>text</key>
-				<string>Don't warn about slow execution speed</string>
+				<key>defaultvalue</key>
+				<integer>3</integer>
+				<key>markercount</key>
+				<integer>11</integer>
+				<key>maxvalue</key>
+				<integer>10</integer>
+				<key>minvalue</key>
+				<integer>0</integer>
+				<key>onlystoponmarkers</key>
+				<true/>
+				<key>showmarkers</key>
+				<true/>
 			</dict>
 			<key>description</key>
-			<string></string>
+			<string>Show warning if execution takes &gt; this many secs (0=disable)</string>
 			<key>label</key>
-			<string></string>
+			<string>Performance</string>
 			<key>type</key>
-			<string>checkbox</string>
+			<string>slider</string>
 			<key>variable</key>
-			<string>IGNORE_SLOW</string>
+			<string>SLOW_AFTER</string>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -1352,7 +1384,7 @@ brew install fd gawk jq
 	<key>variablesdontexport</key>
 	<array/>
 	<key>version</key>
-	<string>1.2.1</string>
+	<string>1.2.2</string>
 	<key>webaddress</key>
 	<string>https://github.com/luckman212/alfred-pathfind</string>
 </dict>
