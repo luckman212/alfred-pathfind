@@ -55,6 +55,7 @@ jq \
 	--raw-input \
 	--argjson st "$START_TIME" '
 	($ENV.PATH_DISPLAY_DEPTH // 0 | tonumber) as $pdd |
+	($ENV.SLOW_AFTER // 0 | tonumber) as $slow |
 	($ENV.DEBUG // 0 | tonumber == 1) as $dbg |
 
 	($ARGS.positional | map(
@@ -105,7 +106,7 @@ jq \
 		}
 	}) as $results |
 
-	(if (now-$st)>3 and ($ENV.IGNORE_SLOW|tonumber) != 1 then [{
+	(if ($slow>0 and (now-$st)>$slow) or $dbg then [{
 		title: "Script execution time is slow! (\((now-$st)*1000|floor) ms)",
 		icon: { path: "turtle.png" },
 		subtitle: "try reducing the search scope or depth",
