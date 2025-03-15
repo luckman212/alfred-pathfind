@@ -9,18 +9,18 @@ if [[ ! -d $dest_dir ]]; then
 	EOS
 fi
 
-if ln -sf $PWD/pathfind.sh $dest_dir/pathfind ; then rc=0; else
+if ln -sf $PWD/pathfind.sh $dest_dir/pathfind ; then cli_result=1; else
 	osascript <<-EOS
 	do shell script "'ln -sf $PWD/pathfind.sh $dest_dir/pathfind'" with administrator privileges with prompt "$PROMPT"
 	EOS
-	(( $rc != 0 )) && rc=1
-	fi
+	(( $? != 0 )) && cli_result=0
+fi
 
 cat <<EOJ
 {
   "alfredworkflow": {
     "variables": {
-      "cli_result": ${rc:-2}
+      "cli_result": ${cli_result:-2}
     }
   }
 }
