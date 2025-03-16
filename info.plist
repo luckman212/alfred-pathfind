@@ -818,7 +818,9 @@
 			<key>config</key>
 			<dict>
 				<key>argument</key>
-				<string>https://www.alfredforum.com/topic/22912-somewhere-between-a-bug-and-a-feature-request-support-placeholders-in-fallback-search-object/</string>
+				<string>Hope to be able to use {const:alfred_workflow_name} in the future...
+
+https://www.alfredforum.com/topic/22912-somewhere-between-a-bug-and-a-feature-request-support-placeholders-in-fallback-search-object/</string>
 				<key>cleardebuggertext</key>
 				<false/>
 				<key>processoutputs</key>
@@ -1363,7 +1365,7 @@ brew install fd gawk jq
 	<key>variablesdontexport</key>
 	<array/>
 	<key>version</key>
-	<string>1.2.6</string>
+	<string>1.2.7</string>
 	<key>webaddress</key>
 	<string>https://github.com/luckman212/alfred-pathfind</string>
 </dict>

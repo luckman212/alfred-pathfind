@@ -26,7 +26,7 @@ if [[ ! -d $dest_dir ]]; then
 	EOS
 fi
 
-if ! ln -sf $PWD/pathfind.sh $dest_dir/pathfind 2>/dev/null; then
+if ! ln -sf "$this_dir/pathfind.sh" $dest_dir/pathfind 2>/dev/null; then
 	osascript <<-EOS
 	do shell script "sh $this_script create_symlink" with administrator privileges with prompt "$PROMPT"
 	EOS
@@ -42,7 +42,7 @@ if (( DEBUG == 1 )); then
 	for i in /usr/local/{,bin,bin/pathfind}; do
 		echo >&2 "🐞i: $i"
 		file >&2 --brief --no-dereference --preserve-date $i
-		ls >&2 -ledFOG@ "$i"
+		ls >&2 -ledFOG@ "${i%/}"
 	done
 fi
 
