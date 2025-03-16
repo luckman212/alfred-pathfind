@@ -1,5 +1,10 @@
 #!/bin/zsh --no-rcs
 
+if (( DEBUG == 1 )) ; then
+	echo >&2 "🐞script \`${0:t}\` starting"
+	echo >&2 "🐞macOS: $(sw_vers | awk 'NR>1 { print $2 }' | paste -sd'-' -)"
+fi
+
 [[ -n $DEPS ]] || exit 1
 DEPS_ARR=("${(@z)DEPS}")
 
