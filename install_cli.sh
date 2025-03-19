@@ -10,7 +10,7 @@ fi
 export dest_dir=/usr/local/bin
 export this_dir=${0:h}
 export this_script=${0:t}
-PROMPT="$alfred_workflow_name is trying to install its commandline tool at $dest_dir"
+PROMPT_PREFIX="$alfred_workflow_name is trying to"
 
 if (( DEBUG == 1 )) ; then
 	cat <<-EOF >&2
@@ -34,13 +34,17 @@ esac
 
 if [[ ! -d $dest_dir ]]; then
 	osascript <<-EOS
-	do shell script "$this_dir/$this_script create_usrlocalbin" with administrator privileges with prompt "$PROMPT"
+	do shell script "'$this_dir/$this_script' create_usrlocalbin" with administrator privileges with prompt "$PROMPT_PREFIX create the $dest_dir dir"
 	EOS
+	if [[ ! -d $dest_dir ]]; then
+		echo >&2 "🐞failed to create $dest_dir"
+		exit 1
+	fi
 fi
 
 if ! ln -sf "$this_dir/pathfind.sh" $dest_dir/pathfind 2>/dev/null; then
 	osascript <<-EOS
-	do shell script "$this_dir/$this_script create_symlink" with administrator privileges with prompt "$PROMPT"
+	do shell script "'$this_dir/$this_script' create_symlink" with administrator privileges with prompt "$PROMPT_PREFIX create a symlink at $dest_dir/pathfind"
 	EOS
 fi
 

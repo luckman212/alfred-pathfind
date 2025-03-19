@@ -10,6 +10,7 @@ SCRIPT_DIR="${0:A:h}"
 _getAlfredWorkflowCfg() {
 	WF_VARS=( ALLOW_XDEV MAX_DEPTH PATHFIND_PATHS PATHFIND_EXCLUDE_PATHS )
 	JSON=$(plutil -convert json -o - -- "${SCRIPT_DIR}/info.plist" 2>/dev/null)
+	[[ -n $JSON ]] || return 1
 	for v in ${WF_VARS[@]}; do
 		unset VALUE
 		if ! VALUE=$(plutil -extract $v raw "${SCRIPT_DIR}/prefs.plist" 2>/dev/null); then
@@ -22,7 +23,7 @@ _getAlfredWorkflowCfg() {
 					.default
 				else "" end')
 		fi
-		typeset -g "${v}"=$VALUE
+		typeset -g "$v"=$VALUE
 	done
 }
 
