@@ -37,7 +37,13 @@ Activate one of the trigger keywords:
 
 ## CLI
 
-The workflow comes with a commandline tool that can be run outside of Alfred, if you ever find the need search from a Terminal. The script name is `pathfind.sh` and you can conveniently create a symlink to it at `/usr/local/bin` by running this workflow with the trigger keyword `:pfcli`. After doing that, just type `pathfindh <word1> [word2...]` from any shell to get the results in text format.
+The workflow comes with a commandline tool that can be run outside of Alfred, if you ever find the need search from a Terminal. The script name is `pathfind.sh` and you can conveniently create a symlink to it at `/usr/local/bin` by running this workflow with the trigger keyword `:pfcli`.
+
+During the installation, you may be prompted for your password so the workflow can create the `/usr/local/bin` directory and create the symlink so the command is available in your shell. You may also be prompted to allow Alfred to "control Terminal.app" — you should allow this so that the final Terminal Command step can complete.
+
+![](./enable_automation.png)
+
+After it's installed, you can type `pathfind <word1> [word2...]` from any shell to get the results in text format.
 
 ## Prerequisites
 
