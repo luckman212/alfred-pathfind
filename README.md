@@ -11,6 +11,8 @@ This means that if you search for “annual report 2024”, both of the files be
 
 Searches are case-insensitive, and the order in which you enter your search terms is not important. The search terms can be plain strings or [regular expressions](https://regex101.com/r/QmVP21/1). The workflow **does not rely on Spotlight** to provide its results.
 
+As of version 1.3.1, you can now pass *quoted strings* to be more explicit with your queries, e.g. "annual report" will NOT match a file named "annual sales report".
+
 ## Configuration
 
 You can customize various options via the Configure Workflow button, or by activating the `:pf` keyword. Most are self-explanatory, I will attempt to better document them in the near future.

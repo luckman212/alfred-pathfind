@@ -51,6 +51,14 @@ fi
 # path prefix hiders
 HIDDEN_PREFIXES_ARR=("${(@f)HIDDEN_PREFIXES}")
 
+ALFRED_QUERY=$1
+eval set -- "$ALFRED_QUERY"
+if (( DEBUG == 1 )); then
+	echo >&2 "🐞passed-in arg=[$ALFRED_QUERY]"
+	echo >&2 "🐞parsed as ($ARGC) args"
+	for (( c=1; c<=ARGC; c++ )); do echo >&2 "arg $c = [$argv[$c]]"; done
+fi
+
 # item_depth = the number of directories ABOVE the item
 # if pdd == 0 then show full path in subtitle
 export START_TIME=$EPOCHREALTIME

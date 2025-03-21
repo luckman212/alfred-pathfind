@@ -36,16 +36,11 @@ esac
 
 FD_ARGS=()
 MD_QUERY=()
-if (( $# == 1 )); then
-	SUPPLIED_ARGS=(${=1})
-else
-	SUPPLIED_ARGS=( $@ )
-fi
-for a in "${SUPPLIED_ARGS[@]}"; do
+for a in "$@"; do
 	if [[ $a == "in:"* ]]; then
 		[[ ${a#in:} != "" ]] && MD_QUERY+=( 'kMDItemTextContent == "'${a#in:}'"c' '&&' )
 	else
-		SEARCH_KEYWORDS+=( $a )
+		SEARCH_KEYWORDS+=( "$a" )
 	fi
 done
 MD_QUERY[-1]=() # remove trailing '&&'
@@ -87,10 +82,11 @@ if [[ -n $PATHFIND_EXCLUDE_PATHS ]]; then
 fi
 
 _filterWithGawk() {
-	gawk -v kw="${SEARCH_KEYWORDS[*]}" '
+	nulbyte_delimited=$(printf '%s\0' "${SEARCH_KEYWORDS[@]}")
+	gawk -v kw="$nulbyte_delimited" '
 	BEGIN {
 		IGNORECASE = 1;
-		n = split(kw, words, " ");
+		n = split(kw, words, "\0");
 		for (i = 1; i <= n; i++) {
 			searchterms[toupper(words[i])] = 1;
 		}
@@ -110,14 +106,19 @@ _mdfind() {
 	for p in "${PATHFIND_PATHS_ARR[@]}"; do
 		MD_ARGS+=( -onlyin ${~p} )
 	done
-	(( DEBUG == 1 )) && set -x
+	if (( DEBUG == 1 )); then
+		echo >&2 "🐞executing mdfind"
+		set -x
+	fi
 	mdfind 2>/dev/null "${MD_ARGS[@]}" "${MD_QUERY[@]}"
-	(( DEBUG == 1 )) && set +x
 }
 
 _multiple_args() {
-	(( DEBUG == 1 )) && echo >&2 "🐞multiple search terms"
 	#hyperfine benchmark shows no improvement with LC_ALL=C, removed
+	if (( DEBUG == 1 )); then
+		echo >&2 "🐞multiple search terms (fd + gawk)"
+		set -x
+	fi
 	fd 2>/dev/null \
 		--color never \
 		--absolute-path \
@@ -127,8 +128,11 @@ _multiple_args() {
 
 # if we only have 1 search term, perform the matching with fd directly to speed execution
 _single_arg() {
-	(( DEBUG == 1 )) && echo >&2 "🐞single search term"
 	FD_ARGS+=( --ignore-case )
+	if (( DEBUG == 1 )); then
+		echo >&2 "🐞single search term (handle exclusively with fd)"
+		set -x
+	fi
 	fd 2>/dev/null \
 		--color never \
 		--absolute-path \
