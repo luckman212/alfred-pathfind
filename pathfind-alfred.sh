@@ -1,11 +1,13 @@
 #!/bin/zsh --no-rcs
 
+zmodload zsh/datetime
+
+. ./helper_functions.sh
+
 if (( DEBUG == 1 )) ; then
 	echo >&2 "🐞script \`${0:t}\` starting, args: $*"
 	echo >&2 "🐞macOS: $(sw_vers | awk 'NR>1 { print $2 }' | paste -sd'-' -)"
 fi
-
-zmodload zsh/datetime
 
 # prereq check
 [[ -n $DEPS ]] || exit 1
@@ -51,18 +53,13 @@ fi
 # path prefix hiders
 HIDDEN_PREFIXES_ARR=("${(@f)HIDDEN_PREFIXES}")
 
-ALFRED_QUERY=$1
-eval set -- "$ALFRED_QUERY"
-if (( DEBUG == 1 )); then
-	echo >&2 "🐞passed-in arg=[$ALFRED_QUERY]"
-	echo >&2 "🐞parsed as ($ARGC) args"
-	for (( c=1; c<=ARGC; c++ )); do echo >&2 "arg $c = [$argv[$c]]"; done
-fi
+#sourced from helper_functions.sh
+_argparse $1
 
 # item_depth = the number of directories ABOVE the item
 # if pdd == 0 then show full path in subtitle
 export START_TIME=$EPOCHREALTIME
-./pathfind.sh "$@" |
+./pathfind.sh "${args[@]}" |
 jq \
 	--null-input \
 	--raw-input \
@@ -120,9 +117,9 @@ jq \
 	}) as $results |
 
 	(if ($slow>0 and (now-$st)>$slow) or $dbg then [{
-		title: "Script execution time is slow! (\((now-$st)*1000|floor) ms)",
+		title: "Script execution time: \((now-$st)*1000|floor) ms",
 		icon: { path: "turtle.png" },
-		subtitle: "try reducing the search scope or depth",
+		subtitle: "If slow, try reducing the search scope or depth",
 		valid: false
 	}]
 	else [] end) as $time |
@@ -144,5 +141,5 @@ jq \
 
 if (( DEBUG == 1 )); then
 	ELAPSED=$(( (EPOCHREALTIME-START_TIME) * 1000))
-	printf >&2 '🐞script completed in %.0f ms\n' $ELAPSED
+	printf >&2 '🐞%s completed in %.0f ms\n' "${0:t}" $ELAPSED
 fi

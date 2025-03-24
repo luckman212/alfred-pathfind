@@ -82,13 +82,19 @@ if [[ -n $PATHFIND_EXCLUDE_PATHS ]]; then
 fi
 
 _filterWithGawk() {
-	nulbyte_delimited=$(printf '%s\0' "${SEARCH_KEYWORDS[@]}")
-	gawk -v kw="$nulbyte_delimited" '
+	export delimited=$(printf '%s/' "${SEARCH_KEYWORDS[@]}")
+	gawk '
 	BEGIN {
 		IGNORECASE = 1;
-		n = split(kw, words, "\0");
-		for (i = 1; i <= n; i++) {
-			searchterms[toupper(words[i])] = 1;
+		n = split(ENVIRON["delimited"], words, "/");
+		for (i = 1; i < n; i++) {
+			w = toupper(words[i]);
+			if (length(w)) {
+				searchterms[w] = 1;
+				if (ENVIRON["DEBUG"]==1) {
+					printf("%s %s: [%s]\n", "gawk searchterm", i, w) > "/dev/stderr";
+				}
+			}
 		}
 	}
 	{
