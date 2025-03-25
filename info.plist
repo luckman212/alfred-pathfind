@@ -479,7 +479,7 @@
 				<key>skipuniversalaction</key>
 				<true/>
 				<key>subtext</key>
-				<string>{const:alfred_workflow_description} folders</string>
+				<string>{const:alfred_workflow_description}</string>
 				<key>title</key>
 				<string>{const:alfred_workflow_name} (Folders only)</string>
 				<key>type</key>
@@ -988,14 +988,14 @@ brew install fd gawk jq
 		<key>16CD3811-386A-4E8D-B707-898E1E204EE7</key>
 		<dict>
 			<key>xpos</key>
-			<real>1270</real>
+			<real>1255</real>
 			<key>ypos</key>
 			<real>150</real>
 		</dict>
 		<key>1AD77EB0-D724-495C-820B-6AFADF131A9C</key>
 		<dict>
 			<key>xpos</key>
-			<real>885</real>
+			<real>870</real>
 			<key>ypos</key>
 			<real>205</real>
 		</dict>
@@ -1004,7 +1004,7 @@ brew install fd gawk jq
 			<key>colorindex</key>
 			<integer>5</integer>
 			<key>xpos</key>
-			<real>1450</real>
+			<real>1430</real>
 			<key>ypos</key>
 			<real>150</real>
 		</dict>
@@ -1015,21 +1015,21 @@ brew install fd gawk jq
 			<key>xpos</key>
 			<real>140</real>
 			<key>ypos</key>
-			<real>545</real>
+			<real>540</real>
 		</dict>
 		<key>2C86530E-0A51-4B93-B913-B7B744976C21</key>
 		<dict>
 			<key>xpos</key>
 			<real>260</real>
 			<key>ypos</key>
-			<real>595</real>
+			<real>590</real>
 		</dict>
 		<key>32116A50-BA7B-4038-BF0D-078B255DA0E7</key>
 		<dict>
 			<key>xpos</key>
 			<real>455</real>
 			<key>ypos</key>
-			<real>595</real>
+			<real>590</real>
 		</dict>
 		<key>33EB1975-865F-4EC6-B26E-6740845C2A05</key>
 		<dict>
@@ -1041,7 +1041,7 @@ brew install fd gawk jq
 		<key>4BF1A6F2-D9A9-44A0-AFF8-483110D83294</key>
 		<dict>
 			<key>xpos</key>
-			<real>795</real>
+			<real>780</real>
 			<key>ypos</key>
 			<real>115</real>
 		</dict>
@@ -1066,7 +1066,7 @@ brew install fd gawk jq
 			<key>xpos</key>
 			<real>35</real>
 			<key>ypos</key>
-			<real>595</real>
+			<real>590</real>
 		</dict>
 		<key>798C6667-7E32-44DB-B847-5718D91F9876</key>
 		<dict>
@@ -1078,14 +1078,14 @@ brew install fd gawk jq
 		<key>88E211CF-4568-4B90-9A51-13599513D268</key>
 		<dict>
 			<key>xpos</key>
-			<real>1045</real>
+			<real>1030</real>
 			<key>ypos</key>
 			<real>95</real>
 		</dict>
 		<key>8E06307C-E35D-42F9-97AE-C9AED5FCA719</key>
 		<dict>
 			<key>xpos</key>
-			<real>885</real>
+			<real>870</real>
 			<key>ypos</key>
 			<real>95</real>
 		</dict>
@@ -1106,7 +1106,7 @@ brew install fd gawk jq
 		<key>9A97C819-60A3-4316-A327-CCEBCC4AD327</key>
 		<dict>
 			<key>xpos</key>
-			<real>1045</real>
+			<real>1030</real>
 			<key>ypos</key>
 			<real>205</real>
 		</dict>
@@ -1136,28 +1136,28 @@ brew install fd gawk jq
 			<key>xpos</key>
 			<real>190</real>
 			<key>ypos</key>
-			<real>625</real>
+			<real>620</real>
 		</dict>
 		<key>B712E43D-23A1-466C-BA53-E6B497DEFECC</key>
 		<dict>
 			<key>xpos</key>
 			<real>35</real>
 			<key>ypos</key>
-			<real>480</real>
+			<real>475</real>
 		</dict>
 		<key>D8BB3D66-8683-4F21-9F9D-AD4187C013C1</key>
 		<dict>
 			<key>colorindex</key>
 			<integer>1</integer>
 			<key>xpos</key>
-			<real>1270</real>
+			<real>1255</real>
 			<key>ypos</key>
 			<real>260</real>
 		</dict>
 		<key>DA3DFE4A-B872-4745-877E-AEC57E6F4CF2</key>
 		<dict>
 			<key>xpos</key>
-			<real>1180</real>
+			<real>1165</real>
 			<key>ypos</key>
 			<real>225</real>
 		</dict>
@@ -1313,10 +1313,10 @@ brew install fd gawk jq
 				<key>required</key>
 				<false/>
 				<key>text</key>
-				<string>Follow symlinks and allow search to span filesystems</string>
+				<string>Allow search to follow symlinks and span filesystems</string>
 			</dict>
 			<key>description</key>
-			<string>Allow the search to follow symlinks and traverse across disparate filesystems (external or network-attached disks, for example)—⚠️can affect search performance!</string>
+			<string>Searches will follow symlinks and traverse across disparate filesystems (external or network-attached disks, for example)—⚠️can affect search performance!</string>
 			<key>label</key>
 			<string></string>
 			<key>type</key>
@@ -1377,7 +1377,7 @@ brew install fd gawk jq
 	<key>variablesdontexport</key>
 	<array/>
 	<key>version</key>
-	<string>1.3.3</string>
+	<string>1.3.4</string>
 	<key>webaddress</key>
 	<string>https://github.com/luckman212/alfred-pathfind</string>
 </dict>

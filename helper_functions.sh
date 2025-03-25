@@ -10,14 +10,14 @@ _dbg() {
 _argparse() {
 	local query=$1
 	local chars=("${(s::)query}")
-	local chunk='' in_quote=0
+	local chunk='' in_quote=0 in_md=0
 	typeset -g args=()
 	_dbg "argparse: original passed-in arg=[$query]"
 	for char in "${chars[@]}"; do
 		case $char in
 			'"')
 				if (( in_quote )); then
-					in_quote=0
+					in_quote=0 in_md=0
 					args+=("$chunk")
 					chunk=''
 				else
@@ -26,14 +26,17 @@ _argparse() {
 				;;
 			' ')
 				if (( in_quote )); then
-					chunk+=' '
+					chunk+=$char
 				elif [[ -n $chunk ]]; then
+					in_md=0
 					args+=("$chunk")
 					chunk=''
 				fi
 				;;
-			'/') # this is a reserved char in filenames, we also use it as the gawk delimiter
-				if [[ -n $chunk ]]; then
+			'/') # / is a reserved char in filenames, we also use it as the gawk delimiter
+				if (( in_quote )) || (( in_md )); then
+					chunk+=$char
+				elif [[ -n $chunk ]]; then
 					args+=("$chunk")
 					chunk=''
 				fi
@@ -42,6 +45,7 @@ _argparse() {
 				chunk+="$char"
 				;;
 		esac
+		[[ $chunk == "in:" ]] && in_md=1
 	done
 	[[ -n $chunk ]] && args+=("$chunk")
 	if (( DEBUG == 1 )); then
