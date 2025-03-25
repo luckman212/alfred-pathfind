@@ -62,6 +62,45 @@
 				<false/>
 			</dict>
 		</array>
+		<key>3604A4AD-E691-4D19-9B13-C640ECCEC875</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>AD6254CB-AE49-4A84-9048-06B52C1C6A14</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>3DD31854-C534-43F5-8322-53F46D88CA34</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>AD6254CB-AE49-4A84-9048-06B52C1C6A14</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>4A213170-3DC8-4CE0-BF5A-A5FE4C5FB2F4</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>AD6254CB-AE49-4A84-9048-06B52C1C6A14</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>4BF1A6F2-D9A9-44A0-AFF8-483110D83294</key>
 		<array>
 			<dict>
@@ -94,6 +133,16 @@
 		<array>
 			<dict>
 				<key>destinationuid</key>
+				<string>F3DA4CCF-638F-4718-BBF7-59AB9C4C77B9</string>
+				<key>modifiers</key>
+				<integer>1572864</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<true/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
 				<string>33EB1975-865F-4EC6-B26E-6740845C2A05</string>
 				<key>modifiers</key>
 				<integer>0</integer>
@@ -120,7 +169,17 @@
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>33EB1975-865F-4EC6-B26E-6740845C2A05</string>
+				<string>4A213170-3DC8-4CE0-BF5A-A5FE4C5FB2F4</string>
+				<key>modifiers</key>
+				<integer>1572864</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<true/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>3604A4AD-E691-4D19-9B13-C640ECCEC875</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -146,7 +205,17 @@
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>33EB1975-865F-4EC6-B26E-6740845C2A05</string>
+				<string>3DD31854-C534-43F5-8322-53F46D88CA34</string>
+				<key>modifiers</key>
+				<integer>1572864</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<true/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>BD28E2F9-F7AB-44C5-8DDD-9702B9B8ADBE</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -185,13 +254,25 @@
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>E265B6A2-1EC2-4785-8D70-DC7C4953C8DD</string>
+				<string>8DA8E1DF-A10C-4C8D-B645-6C096DD6ECF5</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
 				<string></string>
 				<key>sourceoutputuid</key>
 				<string>BEB1FF08-ADB8-4B43-869F-C4C35B13C37F</string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>A118FD7A-7838-47B8-97F2-6129FB7A9B56</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>sourceoutputuid</key>
+				<string>DD08B541-C58D-49C4-8192-E7EACE97AFA0</string>
 				<key>vitoclose</key>
 				<false/>
 			</dict>
@@ -232,6 +313,19 @@
 				<false/>
 			</dict>
 		</array>
+		<key>BD28E2F9-F7AB-44C5-8DDD-9702B9B8ADBE</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>AD6254CB-AE49-4A84-9048-06B52C1C6A14</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>DA3DFE4A-B872-4745-877E-AEC57E6F4CF2</key>
 		<array>
 			<dict>
@@ -257,6 +351,19 @@
 				<false/>
 			</dict>
 		</array>
+		<key>F3DA4CCF-638F-4718-BBF7-59AB9C4C77B9</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>AD6254CB-AE49-4A84-9048-06B52C1C6A14</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 	</dict>
 	<key>createdby</key>
 	<string>luckman212</string>
@@ -268,6 +375,19 @@
 	<string>PathFind</string>
 	<key>objects</key>
 	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>path</key>
+				<string></string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.revealfile</string>
+			<key>uid</key>
+			<string>8DA8E1DF-A10C-4C8D-B645-6C096DD6ECF5</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
 		<dict>
 			<key>config</key>
 			<dict>
@@ -323,6 +443,22 @@
 			<string>798C6667-7E32-44DB-B847-5718D91F9876</string>
 			<key>version</key>
 			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.junction</string>
+			<key>uid</key>
+			<string>4A213170-3DC8-4CE0-BF5A-A5FE4C5FB2F4</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.junction</string>
+			<key>uid</key>
+			<string>3604A4AD-E691-4D19-9B13-C640ECCEC875</string>
+			<key>version</key>
+			<integer>1</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -410,19 +546,6 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>path</key>
-				<string></string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.revealfile</string>
-			<key>uid</key>
-			<string>E265B6A2-1EC2-4785-8D70-DC7C4953C8DD</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>button1</key>
 				<string>Install</string>
 				<key>button2</key>
@@ -440,6 +563,33 @@
 			<string>4BF1A6F2-D9A9-44A0-AFF8-483110D83294</string>
 			<key>version</key>
 			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>68</integer>
+				<key>script</key>
+				<string>function run(argv) {
+  var f = argv[0];
+  const Finder = Application('Finder');
+  Finder.reveal(Path(f));
+}</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>7</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>A118FD7A-7838-47B8-97F2-6129FB7A9B56</string>
+			<key>version</key>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -470,6 +620,7 @@
 				<string></string>
 				<key>script</key>
 				<string>export TYPE_OVERRIDE=directory
+export WF_TITLE_OVERRIDE="$alfred_workflow_name (Folders only)"
 ./pathfind-alfred.sh "$1"
 </string>
 				<key>scriptargtype</key>
@@ -549,6 +700,20 @@
 						<key>uid</key>
 						<string>BEB1FF08-ADB8-4B43-869F-C4C35B13C37F</string>
 					</dict>
+					<dict>
+						<key>inputstring</key>
+						<string>{var:action}</string>
+						<key>matchcasesensitive</key>
+						<false/>
+						<key>matchmode</key>
+						<integer>0</integer>
+						<key>matchstring</key>
+						<string>reveal_bg</string>
+						<key>outputlabel</key>
+						<string>reveal_bg</string>
+						<key>uid</key>
+						<string>DD08B541-C58D-49C4-8192-E7EACE97AFA0</string>
+					</dict>
 				</array>
 				<key>elselabel</key>
 				<string>open</string>
@@ -566,7 +731,15 @@
 			<key>type</key>
 			<string>alfred.workflow.utility.junction</string>
 			<key>uid</key>
-			<string>33EB1975-865F-4EC6-B26E-6740845C2A05</string>
+			<string>3DD31854-C534-43F5-8322-53F46D88CA34</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.junction</string>
+			<key>uid</key>
+			<string>BD28E2F9-F7AB-44C5-8DDD-9702B9B8ADBE</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -617,21 +790,6 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>openwith</key>
-				<string></string>
-				<key>sourcefile</key>
-				<string></string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.openfile</string>
-			<key>uid</key>
-			<string>AA2301F5-18E6-4ED5-849E-F3759AE48545</string>
-			<key>version</key>
-			<integer>3</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>conditions</key>
 				<array>
 					<dict>
@@ -664,6 +822,21 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>openwith</key>
+				<string></string>
+				<key>sourcefile</key>
+				<string></string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.openfile</string>
+			<key>uid</key>
+			<string>AA2301F5-18E6-4ED5-849E-F3759AE48545</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>alfredfiltersresults</key>
 				<false/>
 				<key>alfredfiltersresultsmatchmode</key>
@@ -690,6 +863,7 @@
 				<string></string>
 				<key>script</key>
 				<string>export TYPE_OVERRIDE=file
+export WF_TITLE_OVERRIDE="$alfred_workflow_name (Files only)"
 ./pathfind-alfred.sh "$1"
 </string>
 				<key>scriptargtype</key>
@@ -715,6 +889,14 @@
 			<integer>3</integer>
 		</dict>
 		<dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.junction</string>
+			<key>uid</key>
+			<string>F3DA4CCF-638F-4718-BBF7-59AB9C4C77B9</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
 			<key>config</key>
 			<dict>
 				<key>lastpathcomponent</key>
@@ -732,6 +914,14 @@
 			<string>alfred.workflow.output.notification</string>
 			<key>uid</key>
 			<string>D8BB3D66-8683-4F21-9F9D-AD4187C013C1</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.junction</string>
+			<key>uid</key>
+			<string>33EB1975-865F-4EC6-B26E-6740845C2A05</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -1036,7 +1226,32 @@ brew install fd gawk jq
 			<key>xpos</key>
 			<real>240</real>
 			<key>ypos</key>
-			<real>175</real>
+			<real>310</real>
+		</dict>
+		<key>3604A4AD-E691-4D19-9B13-C640ECCEC875</key>
+		<dict>
+			<key>xpos</key>
+			<real>240</real>
+			<key>ypos</key>
+			<real>90</real>
+		</dict>
+		<key>3DD31854-C534-43F5-8322-53F46D88CA34</key>
+		<dict>
+			<key>colorindex</key>
+			<integer>10</integer>
+			<key>xpos</key>
+			<real>240</real>
+			<key>ypos</key>
+			<real>150</real>
+		</dict>
+		<key>4A213170-3DC8-4CE0-BF5A-A5FE4C5FB2F4</key>
+		<dict>
+			<key>colorindex</key>
+			<integer>10</integer>
+			<key>xpos</key>
+			<real>240</real>
+			<key>ypos</key>
+			<real>40</real>
 		</dict>
 		<key>4BF1A6F2-D9A9-44A0-AFF8-483110D83294</key>
 		<dict>
@@ -1082,6 +1297,13 @@ brew install fd gawk jq
 			<key>ypos</key>
 			<real>95</real>
 		</dict>
+		<key>8DA8E1DF-A10C-4C8D-B645-6C096DD6ECF5</key>
+		<dict>
+			<key>xpos</key>
+			<real>480</real>
+			<key>ypos</key>
+			<real>15</real>
+		</dict>
 		<key>8E06307C-E35D-42F9-97AE-C9AED5FCA719</key>
 		<dict>
 			<key>xpos</key>
@@ -1110,6 +1332,13 @@ brew install fd gawk jq
 			<key>ypos</key>
 			<real>205</real>
 		</dict>
+		<key>A118FD7A-7838-47B8-97F2-6129FB7A9B56</key>
+		<dict>
+			<key>xpos</key>
+			<real>480</real>
+			<key>ypos</key>
+			<real>125</real>
+		</dict>
 		<key>A641361F-048E-4267-A383-B52E96A7C848</key>
 		<dict>
 			<key>xpos</key>
@@ -1120,16 +1349,16 @@ brew install fd gawk jq
 		<key>AA2301F5-18E6-4ED5-849E-F3759AE48545</key>
 		<dict>
 			<key>xpos</key>
-			<real>455</real>
+			<real>480</real>
 			<key>ypos</key>
-			<real>205</real>
+			<real>235</real>
 		</dict>
 		<key>AD6254CB-AE49-4A84-9048-06B52C1C6A14</key>
 		<dict>
 			<key>xpos</key>
-			<real>330</real>
+			<real>375</real>
 			<key>ypos</key>
-			<real>165</real>
+			<real>150</real>
 		</dict>
 		<key>B5E84CA5-B7EB-432A-AC37-C1333053050F</key>
 		<dict>
@@ -1144,6 +1373,13 @@ brew install fd gawk jq
 			<real>35</real>
 			<key>ypos</key>
 			<real>475</real>
+		</dict>
+		<key>BD28E2F9-F7AB-44C5-8DDD-9702B9B8ADBE</key>
+		<dict>
+			<key>xpos</key>
+			<real>240</real>
+			<key>ypos</key>
+			<real>200</real>
 		</dict>
 		<key>D8BB3D66-8683-4F21-9F9D-AD4187C013C1</key>
 		<dict>
@@ -1161,12 +1397,14 @@ brew install fd gawk jq
 			<key>ypos</key>
 			<real>225</real>
 		</dict>
-		<key>E265B6A2-1EC2-4785-8D70-DC7C4953C8DD</key>
+		<key>F3DA4CCF-638F-4718-BBF7-59AB9C4C77B9</key>
 		<dict>
+			<key>colorindex</key>
+			<integer>10</integer>
 			<key>xpos</key>
-			<real>455</real>
+			<real>240</real>
 			<key>ypos</key>
-			<real>95</real>
+			<real>260</real>
 		</dict>
 	</dict>
 	<key>userconfigurationconfig</key>
@@ -1377,7 +1615,7 @@ brew install fd gawk jq
 	<key>variablesdontexport</key>
 	<array/>
 	<key>version</key>
-	<string>1.3.5</string>
+	<string>1.3.6</string>
 	<key>webaddress</key>
 	<string>https://github.com/luckman212/alfred-pathfind</string>
 </dict>

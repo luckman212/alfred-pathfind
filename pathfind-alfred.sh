@@ -5,6 +5,7 @@ zmodload zsh/datetime
 . ./helper_functions.sh
 
 if (( DEBUG == 1 )) ; then
+	echo >&2 "🐞$alfred_workflow_name v${alfred_workflow_version}"
 	echo >&2 "🐞script \`${0:t}\` starting, args: $*"
 	echo >&2 "🐞macOS: $(sw_vers | awk 'NR>1 { print $2 }' | paste -sd'-' -)"
 fi
@@ -31,8 +32,8 @@ if [[ -z $1 ]]; then
 	fi
 	cat <<-EOJ
 	{ "items": [{
-		"title": "${alfred_workflow_name:-<workflow_name>}",
-		"subtitle": "${alfred_workflow_description:-<workflow_description>}",
+		"title": "${WF_TITLE_OVERRIDE:-$alfred_workflow_name}",
+		"subtitle": "${alfred_workflow_description}",
 		"icon": $ICON_JSON,
 		"valid": false,
 		"mods": {
@@ -81,6 +82,7 @@ jq \
 	else . end |
 
 	[inputs] | map(
+	. as $raw |
 	(sub("/$";"") | sub("^\($ENV.HOME)/";"~/")) as $fqpn |
 
 	$fqpn | split("/")     as $fqpn_els |
@@ -103,7 +105,7 @@ jq \
 	{
 		title: $item_name,
 		subtitle: $sub,
-		arg: $fqpn,
+		arg: $raw,
 		icon: { type: "fileicon", path: $fqpn },
 		quicklookurl: $fqpn,
 		mods: {
@@ -112,6 +114,10 @@ jq \
 				subtitle: "↩ reveal in Finder"
 			},
 			alt: { subtitle: "", valid: false },
+			"cmd+alt": {
+				variables: { action: "reveal_bg" },
+				subtitle: "↩ reveal in Finder (without closing Alfred)"
+			},
 			ctrl: { valid: false }
 		}
 	}) as $results |
