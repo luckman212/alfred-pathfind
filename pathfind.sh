@@ -82,12 +82,14 @@ if [[ -n $PATHFIND_EXCLUDE_PATHS ]]; then
 fi
 
 _filterWithGawk() {
-	export delimited=$(printf '%s/' "${SEARCH_KEYWORDS[@]}")
+	printf '%s\0' "${SEARCH_KEYWORDS[@]}" >/private/tmp/pathfind_gawkfilter
 	gawk '
 	BEGIN {
 		IGNORECASE = 1;
-		n = split(ENVIRON["delimited"], words, "/");
-		for (i = 1; i < n; i++) {
+	}
+	FILENAME == "/private/tmp/pathfind_gawkfilter" {
+		n = split($0, words, "\0");
+		for (i=1; i<n; i++) {
 			w = toupper(words[i]);
 			if (length(w)) {
 				searchterms[w] = 1;
@@ -97,13 +99,13 @@ _filterWithGawk() {
 			}
 		}
 	}
-	{
+	FILENAME == "/dev/stdin" {
 		line = toupper($0);
 		for (word in searchterms) {
 			if (line !~ word) { next; }
 		}
 		print $0;
-	}'
+	}' /private/tmp/pathfind_gawkfilter /dev/stdin
 }
 
 # ref: mdimport -X

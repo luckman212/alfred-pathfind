@@ -33,7 +33,7 @@ _argparse() {
 					chunk=''
 				fi
 				;;
-			'/') # / is a reserved char in filenames, we also use it as the gawk delimiter
+			'/') # / is a reserved char in filenames
 				if (( in_quote )) || (( in_md )); then
 					chunk+=$char
 				elif [[ -n $chunk ]]; then
