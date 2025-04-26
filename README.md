@@ -2,7 +2,7 @@
 
 # PathFind
 
-Inspired by [this post](https://www.alfredforum.com/topic/22886-locating-a-document-by-searching-for-words-that-are-in-the-documents-filepath/), **PathFind** is a workflow that aims to quickly and thoroughly search your filesystem for files and folders matching keyword(s) in *any part* of the filename or enclosing path.
+**PathFind** is a workflow that aims to quickly and thoroughly search your filesystem for files and folders matching keyword(s) in *any part* of the filename or enclosing path.
 
 This means that if you search for “annual report 2024”, both of the files below would appear in the results:
 
@@ -11,7 +11,7 @@ This means that if you search for “annual report 2024”, both of the files be
 
 Searches are case-insensitive, and the order in which you enter your search terms is not important. The search terms can be plain strings or [regular expressions](https://regex101.com/r/QmVP21/1). The workflow **does not rely on Spotlight** to provide its results.
 
-As of version 1.3.3, you can now pass *quoted strings* to be more explicit with your queries, e.g. "annual report" will NOT match a file named "annual sales report". Only **double-quotes** are considered—single-quotes are parsed as normal punctuation. Non-quoted strings will be split on spaces (which has always been the case).
+You can pass *quoted strings* to be more explicit with your queries, e.g. "annual report" will NOT match a file named "annual sales report". Only **double-quotes** are considered—single-quotes are parsed as normal punctuation. Non-quoted strings will be split on spaces (which has always been the case).
 
 ## Configuration
 
@@ -27,6 +27,14 @@ The most important thing to configure are the **Paths** (include, exclude, etc).
 /Volumes/development/area51
 ```
 
+Another potentially useful section is **Path substitutions**. Here, you can specify a list of pathnames or partial pathnames to be translated (typically _shortened_) so that deeply-nested filenames will be more visible in the subtitles. You specify the "real" path substring on the left, and the shortened "display" name on the right, separated by the pipe character `|`.
+
+For example, you might want to shorten a path like **~/Documents/Book Reports/2025/Biology 201** to just **📕BR2025**. To do that, you would configure that area as:
+
+```
+~/Documents/Book Reports/2025/Biology 201|📕2025
+```
+
 ## Usage
 
 Activate one of the trigger keywords:
@@ -35,7 +43,7 @@ Activate one of the trigger keywords:
 - `pff` to search Files only
 - `pfc` to search exclusively in the current active (frontmost) Finder window (its path does NOT need to be included in your workflow config search scope ahead of time)
 
-🚀 As of 1.2.0, you can now leverage Spotlight **in addition to** the filename-based search capabilities! To use Spotlight to query for files based on their *contents*, prefix your search term(s) with `in:`. For example, to find PDF files with the word "contract" in the filename, and the words "agreed" and "November" in the *contents*, use Alfred query `contract pdf in:agreed in:november` (the Spotlight terms are also case-insensitive).
+You can also leverage Spotlight **in addition to** the filename-based search capabilities! To use Spotlight to query for files based on their *contents*, prefix your search term(s) with `in:`. For example, to find PDF files with the word "contract" in the filename, and the words "agreed" and "November" in the *contents*, use Alfred query `contract pdf in:agreed in:november` (the Spotlight terms are also case-insensitive).
 
 ## CLI
 
@@ -66,3 +74,7 @@ brew install fd gawk jq
 
 - Make sure your defined keywords do not conflict with any from Alfred's native Features > File Search area!
 - Enabling the **Follow symlinks** option can significantly slow down searches. If you need this option but experience poor performance, try adjusting **Max depth**, or use a smaller search scope (fewer folders, or more specific query)
+
+## Inspiration
+
+The workflow was inspired by [this post](https://www.alfredforum.com/topic/22886-locating-a-document-by-searching-for-words-that-are-in-the-documents-filepath/). Thank you @achieve927 for the idea!
