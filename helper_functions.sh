@@ -1,6 +1,6 @@
 # shellcheck disable=all
 
-[[ $PATHFIND_HELPER_FUNCTIONS_SOURCED == true ]] && return 0
+#echo >&2 "✅loading helper_functions.sh"
 
 _inAlfred() { [[ -n $alfred_workflow_uid ]]; }
 
@@ -63,5 +63,3 @@ _argparse() {
 		done
 	fi
 }
-
-export PATHFIND_HELPER_FUNCTIONS_SOURCED=true

@@ -60,6 +60,7 @@ _argparse $1
 # item_depth = the number of directories ABOVE the item
 # if pdd == 0 then show full path in subtitle
 export START_TIME=$EPOCHREALTIME
+
 ./pathfind.sh "${args[@]}" |
 jq \
 	--null-input \
@@ -67,7 +68,7 @@ jq \
 	--argjson st "$START_TIME" '
 	(env.PATH_DISPLAY_DEPTH // 0 | tonumber) as $pdd |
 	(env.SLOW_AFTER // 0 | tonumber) as $slow |
-	(env.DEBUG=="true") or (env.DEBUG=="1") as $dbg |
+	(env.DEBUG=="true" or env.DEBUG=="1") as $dbg |
 
 	($ARGS.positional | map(
 		sub("^\\s+";"") | sub("\\s+$";"") |

@@ -1664,7 +1664,7 @@ The workflow was inspired by [this post](https://www.alfredforum.com/topic/22886
 		<string>fd gawk jq</string>
 	</dict>
 	<key>version</key>
-	<string>1.4.0</string>
+	<string>1.4.1</string>
 	<key>webaddress</key>
 	<string>https://github.com/luckman212/alfred-pathfind</string>
 </dict>
