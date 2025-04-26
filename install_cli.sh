@@ -1,18 +1,20 @@
 #!/bin/zsh --no-rcs
 
-if (( DEBUG == 1 )) ; then
+source "${0:A:h}/helper_functions.sh"
+
+if _isTrue DEBUG ; then
 	echo >&2 "🐞script \`${0:t}\` starting, args: $*"
 	echo >&2 "🐞macOS: $(sw_vers | awk 'NR>1 { print $2 }' | paste -sd'-' -)"
 fi
 
-(( DEBUG == 1 )) && set -x
+_isTrue DEBUG && set -x
 
 export dest_dir=/usr/local/bin
-export this_dir=${0:h}
+export this_dir=${0:A:h}
 export this_script=${0:t}
 PROMPT_PREFIX="$alfred_workflow_name is trying to"
 
-if (( DEBUG == 1 )) ; then
+if _isTrue DEBUG ; then
 	cat <<-EOF >&2
 	🐞VAR: \`this_dir\`=$this_dir
 	🐞VAR: \`this_script\`=$this_script
@@ -54,7 +56,7 @@ else
 	cli_result=0
 fi
 
-if (( DEBUG == 1 )); then
+if _isTrue DEBUG; then
 	for i in /usr/local/{,bin,bin/pathfind}; do
 		echo >&2 "🐞VAR: \`i\`=$i"
 		file >&2 --brief --no-dereference --preserve-date $i

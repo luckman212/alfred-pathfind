@@ -1,6 +1,8 @@
 #!/bin/zsh --no-rcs
 
-if (( DEBUG == 1 )) ; then
+source "${0:A:h}/helper_functions.sh"
+
+if _isTrue DEBUG ; then
 	echo >&2 "🐞script \`${0:t}\` starting"
 	echo >&2 "🐞macOS: $(sw_vers | awk 'NR>1 { print $2 }' | paste -sd'-' -)"
 fi

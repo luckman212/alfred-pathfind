@@ -822,21 +822,6 @@ export WF_TITLE_OVERRIDE="$alfred_workflow_name (Folders only)"
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>openwith</key>
-				<string></string>
-				<key>sourcefile</key>
-				<string></string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.openfile</string>
-			<key>uid</key>
-			<string>AA2301F5-18E6-4ED5-849E-F3759AE48545</string>
-			<key>version</key>
-			<integer>3</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>alfredfiltersresults</key>
 				<false/>
 				<key>alfredfiltersresultsmatchmode</key>
@@ -885,6 +870,21 @@ export WF_TITLE_OVERRIDE="$alfred_workflow_name (Files only)"
 			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
 			<string>60C061C7-522A-46AB-BDC3-18B28B0FF2F6</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>openwith</key>
+				<string></string>
+				<key>sourcefile</key>
+				<string></string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.openfile</string>
+			<key>uid</key>
+			<string>AA2301F5-18E6-4ED5-849E-F3759AE48545</string>
 			<key>version</key>
 			<integer>3</integer>
 		</dict>
@@ -1109,7 +1109,7 @@ https://www.alfredforum.com/topic/22912-somewhere-between-a-bug-and-a-feature-re
 
 # PathFind
 
-Inspired by [this post](https://www.alfredforum.com/topic/22886-locating-a-document-by-searching-for-words-that-are-in-the-documents-filepath/), **PathFind** is a workflow that aims to quickly and thoroughly search your filesystem for files and folders matching keyword(s) in *any part* of the filename or enclosing path.
+**PathFind** is a workflow that aims to quickly and thoroughly search your filesystem for files and folders matching keyword(s) in *any part* of the filename or enclosing path.
 
 This means that if you search for “annual report 2024”, both of the files below would appear in the results:
 
@@ -1118,7 +1118,7 @@ This means that if you search for “annual report 2024”, both of the files be
 
 Searches are case-insensitive, and the order in which you enter your search terms is not important. The search terms can be plain strings or [regular expressions](https://regex101.com/r/QmVP21/1). The workflow **does not rely on Spotlight** to provide its results.
 
-As of version 1.3.3, you can now pass *quoted strings* to be more explicit with your queries, e.g. "annual report" will NOT match a file named "annual sales report". Only **double-quotes** are considered—single-quotes are parsed as normal punctuation. Non-quoted strings will be split on spaces (which has always been the case).
+You can pass *quoted strings* to be more explicit with your queries, e.g. "annual report" will NOT match a file named "annual sales report". Only **double-quotes** are considered—single-quotes are parsed as normal punctuation. Non-quoted strings will be split on spaces (which has always been the case).
 
 ## Configuration
 
@@ -1134,6 +1134,14 @@ The most important thing to configure are the **Paths** (include, exclude, etc).
 /Volumes/development/area51
 ```
 
+Another potentially useful section is **Path substitutions**. Here, you can specify a list of pathnames or partial pathnames to be translated (typically _shortened_) so that deeply-nested filenames will be more visible in the subtitles. You specify the "real" path substring on the left, and the shortened "display" name on the right, separated by the pipe character `|`.
+
+For example, you might want to shorten a path like **~/Documents/Book Reports/2025/Biology 201** to just **📕BR2025**. To do that, you would configure that area as:
+
+```
+~/Documents/Book Reports/2025/Biology 201|📕2025
+```
+
 ## Usage
 
 Activate one of the trigger keywords:
@@ -1142,7 +1150,7 @@ Activate one of the trigger keywords:
 - `pff` to search Files only
 - `pfc` to search exclusively in the current active (frontmost) Finder window (its path does NOT need to be included in your workflow config search scope ahead of time)
 
-🚀 As of 1.2.0, you can now leverage Spotlight **in addition to** the filename-based search capabilities! To use Spotlight to query for files based on their *contents*, prefix your search term(s) with `in:`. For example, to find PDF files with the word "contract" in the filename, and the words "agreed" and "November" in the *contents*, use Alfred query `contract pdf in:agreed in:november` (the Spotlight terms are also case-insensitive).
+You can also leverage Spotlight **in addition to** the filename-based search capabilities! To use Spotlight to query for files based on their *contents*, prefix your search term(s) with `in:`. For example, to find PDF files with the word "contract" in the filename, and the words "agreed" and "November" in the *contents*, use Alfred query `contract pdf in:agreed in:november` (the Spotlight terms are also case-insensitive).
 
 ## CLI
 
@@ -1172,7 +1180,11 @@ brew install fd gawk jq
 ## ⚠️Potential Gotchas
 
 - Make sure your defined keywords do not conflict with any from Alfred's native Features &gt; File Search area!
-- Enabling the **Follow symlinks** option can significantly slow down searches. If you need this option but experience poor performance, try adjusting **Max depth**, or use a smaller search scope (fewer folders, or more specific query)</string>
+- Enabling the **Follow symlinks** option can significantly slow down searches. If you need this option but experience poor performance, try adjusting **Max depth**, or use a smaller search scope (fewer folders, or more specific query)
+
+## Inspiration
+
+The workflow was inspired by [this post](https://www.alfredforum.com/topic/22886-locating-a-document-by-searching-for-words-that-are-in-the-documents-filepath/). Thank you @achieve927 for the idea!</string>
 	<key>uidata</key>
 	<dict>
 		<key>16CD3811-386A-4E8D-B707-898E1E204EE7</key>
@@ -1217,7 +1229,7 @@ brew install fd gawk jq
 		<key>32116A50-BA7B-4038-BF0D-078B255DA0E7</key>
 		<dict>
 			<key>xpos</key>
-			<real>455</real>
+			<real>480</real>
 			<key>ypos</key>
 			<real>590</real>
 		</dict>
@@ -1302,7 +1314,7 @@ brew install fd gawk jq
 			<key>xpos</key>
 			<real>480</real>
 			<key>ypos</key>
-			<real>15</real>
+			<real>35</real>
 		</dict>
 		<key>8E06307C-E35D-42F9-97AE-C9AED5FCA719</key>
 		<dict>
@@ -1314,9 +1326,9 @@ brew install fd gawk jq
 		<key>90B2E25F-0825-4814-A615-4FE2B954F7F8</key>
 		<dict>
 			<key>xpos</key>
-			<real>455</real>
+			<real>480</real>
 			<key>ypos</key>
-			<real>365</real>
+			<real>475</real>
 		</dict>
 		<key>95FC006C-4A12-4F30-93B1-A6D4ACE24CB3</key>
 		<dict>
@@ -1337,7 +1349,7 @@ brew install fd gawk jq
 			<key>xpos</key>
 			<real>480</real>
 			<key>ypos</key>
-			<real>125</real>
+			<real>145</real>
 		</dict>
 		<key>A641361F-048E-4267-A383-B52E96A7C848</key>
 		<dict>
@@ -1351,12 +1363,12 @@ brew install fd gawk jq
 			<key>xpos</key>
 			<real>480</real>
 			<key>ypos</key>
-			<real>235</real>
+			<real>255</real>
 		</dict>
 		<key>AD6254CB-AE49-4A84-9048-06B52C1C6A14</key>
 		<dict>
 			<key>xpos</key>
-			<real>375</real>
+			<real>365</real>
 			<key>ypos</key>
 			<real>150</real>
 		</dict>
@@ -1532,16 +1544,16 @@ brew install fd gawk jq
 				<key>trim</key>
 				<false/>
 				<key>verticalsize</key>
-				<integer>6</integer>
+				<integer>3</integer>
 			</dict>
 			<key>description</key>
-			<string>Portions of the parent path shown in the subtitle to hide (useful for very deep directories)</string>
+			<string>Strings to replace in the displayed subtitles. Input two strings, separated by the | character, e.g. /Really/Long/Path/|/RLP/</string>
 			<key>label</key>
-			<string>Hide prefixes</string>
+			<string>Path substitutions</string>
 			<key>type</key>
 			<string>textarea</string>
 			<key>variable</key>
-			<string>HIDDEN_PREFIXES</string>
+			<string>PATH_SUBST</string>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -1554,7 +1566,8 @@ brew install fd gawk jq
 				<string>Allow search to follow symlinks and span filesystems</string>
 			</dict>
 			<key>description</key>
-			<string>Searches will follow symlinks and traverse across disparate filesystems (external or network-attached disks, for example)—⚠️can affect search performance!</string>
+			<string>Searches will follow symlinks and traverse across disparate filesystems (external or network-attached disks, for example)
+⚠️can affect search performance!</string>
 			<key>label</key>
 			<string></string>
 			<key>type</key>
@@ -1579,7 +1592,7 @@ brew install fd gawk jq
 				<true/>
 			</dict>
 			<key>description</key>
-			<string>Show warning if execution takes &gt; this many secs (0=disable)</string>
+			<string>Warn if execution takes &gt; this many seconds (0=disable)</string>
 			<key>label</key>
 			<string>Performance alarm</string>
 			<key>type</key>
@@ -1606,16 +1619,52 @@ brew install fd gawk jq
 			<key>variable</key>
 			<string>DEBUG</string>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<false/>
+				<key>required</key>
+				<false/>
+				<key>text</key>
+				<string>Respect .gitignore</string>
+			</dict>
+			<key>description</key>
+			<string>If checked, results will be filtered based on .gitignore files</string>
+			<key>label</key>
+			<string></string>
+			<key>type</key>
+			<string>checkbox</string>
+			<key>variable</key>
+			<string>USE_GITIGNORE</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<false/>
+				<key>required</key>
+				<false/>
+				<key>text</key>
+				<string>Include hidden files in search results</string>
+			</dict>
+			<key>description</key>
+			<string></string>
+			<key>label</key>
+			<string></string>
+			<key>type</key>
+			<string>checkbox</string>
+			<key>variable</key>
+			<string>INCLUDE_HIDDEN</string>
+		</dict>
 	</array>
 	<key>variables</key>
 	<dict>
 		<key>DEPS</key>
 		<string>fd gawk jq</string>
 	</dict>
-	<key>variablesdontexport</key>
-	<array/>
 	<key>version</key>
-	<string>1.3.6</string>
+	<string>1.4.0</string>
 	<key>webaddress</key>
 	<string>https://github.com/luckman212/alfred-pathfind</string>
 </dict>

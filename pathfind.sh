@@ -1,6 +1,8 @@
 #!/bin/zsh --no-rcs
 
-if (( DEBUG == 1 )) ; then
+source "${0:A:h}/helper_functions.sh"
+
+if _isTrue DEBUG ; then
 	echo >&2 "🐞script \`${0:t}\` starting, args: $*"
 	echo >&2 "🐞macOS: $(sw_vers | awk 'NR>1 { print $2 }' | paste -sd'-' -)"
 fi
@@ -8,9 +10,9 @@ fi
 SCRIPT_DIR="${0:A:h}"
 
 _getAlfredWorkflowCfg() {
-	WF_VARS=( ALLOW_XDEV MAX_DEPTH PATHFIND_PATHS PATHFIND_EXCLUDE_PATHS )
 	JSON=$(plutil -convert json -o - -- "${SCRIPT_DIR}/info.plist" 2>/dev/null)
 	[[ -n $JSON ]] || return 1
+	WF_VARS=( "${(@f)$(jq --raw-output '.userconfigurationconfig[] | .variable' <<< "$JSON")}" )
 	for v in ${WF_VARS[@]}; do
 		unset VALUE
 		if ! VALUE=$(plutil -extract $v raw "${SCRIPT_DIR}/prefs.plist" 2>/dev/null); then
@@ -24,6 +26,7 @@ _getAlfredWorkflowCfg() {
 				else "" end')
 		fi
 		typeset -g "$v"=$VALUE
+		_dbg "set var $v=$VALUE"
 	done
 }
 
@@ -45,9 +48,19 @@ for a in "$@"; do
 done
 MD_QUERY[-1]=() # remove trailing '&&'
 
+case $INCLUDE_HIDDEN in
+	1|true) FD_ARGS+=( --hidden );;
+	*) FD_ARGS+=( --no-hidden);;
+esac
+
+case $USE_GITIGNORE in
+	1|true) FD_ARGS+=( --ignore );;
+	*) FD_ARGS+=( --no-ignore );;
+esac
+
 case $ALLOW_XDEV in
-	1) FD_ARGS+=( --follow );;
-	0|*) FD_ARGS+=( --one-file-system --no-follow );; #if unset, use default (running from shell?)
+	1|true) FD_ARGS+=( --follow );;
+	*) FD_ARGS+=( --one-file-system --no-follow );; #if unset, use default (running from shell?)
 esac
 
 #files, dirs or both
@@ -93,7 +106,7 @@ _filterWithGawk() {
 			w = toupper(words[i]);
 			if (length(w)) {
 				searchterms[w] = 1;
-				if (ENVIRON["DEBUG"]==1) {
+				if (ENVIRON["DEBUG"]==1 || ENVIRON["DEBUG"]=="true") {
 					printf("%s %s: [%s]\n", "gawk searchterm", i, w) > "/dev/stderr";
 				}
 			}
@@ -114,7 +127,7 @@ _mdfind() {
 	for p in "${PATHFIND_PATHS_ARR[@]}"; do
 		MD_ARGS+=( -onlyin ${~p} )
 	done
-	if (( DEBUG == 1 )); then
+	if _isTrue DEBUG ; then
 		echo >&2 "🐞executing mdfind"
 		set -x
 	fi
@@ -123,7 +136,7 @@ _mdfind() {
 
 _multiple_args() {
 	#hyperfine benchmark shows no improvement with LC_ALL=C, removed
-	if (( DEBUG == 1 )); then
+	if _isTrue DEBUG ; then
 		echo >&2 "🐞multiple search terms (fd + gawk)"
 		set -x
 	fi
@@ -137,7 +150,7 @@ _multiple_args() {
 # if we only have 1 search term, perform the matching with fd directly to speed execution
 _single_arg() {
 	FD_ARGS+=( --ignore-case )
-	if (( DEBUG == 1 )); then
+	if _isTrue DEBUG ; then
 		echo >&2 "🐞single search term (handle exclusively with fd)"
 		set -x
 	fi

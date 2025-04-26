@@ -2,9 +2,9 @@
 
 zmodload zsh/datetime
 
-. ./helper_functions.sh
+source "${0:A:h}/helper_functions.sh"
 
-if (( DEBUG == 1 )) ; then
+if _isTrue DEBUG ; then
 	echo >&2 "🐞$alfred_workflow_name v${alfred_workflow_version}"
 	echo >&2 "🐞script \`${0:t}\` starting, args: $*"
 	echo >&2 "🐞macOS: $(sw_vers | awk 'NR>1 { print $2 }' | paste -sd'-' -)"
@@ -51,8 +51,8 @@ if [[ -z $PATHFIND_PATHS ]]; then
 	export PATHFIND_PATHS=$PWD
 fi
 
-# path prefix hiders
-HIDDEN_PREFIXES_ARR=("${(@f)HIDDEN_PREFIXES}")
+# path substitutions
+PATH_SUBST_ARR=("${(@f)PATH_SUBST}")
 
 #sourced from helper_functions.sh
 _argparse $1
@@ -65,25 +65,28 @@ jq \
 	--null-input \
 	--raw-input \
 	--argjson st "$START_TIME" '
-	($ENV.PATH_DISPLAY_DEPTH // 0 | tonumber) as $pdd |
-	($ENV.SLOW_AFTER // 0 | tonumber) as $slow |
-	($ENV.DEBUG // 0 | tonumber == 1) as $dbg |
+	(env.PATH_DISPLAY_DEPTH // 0 | tonumber) as $pdd |
+	(env.SLOW_AFTER // 0 | tonumber) as $slow |
+	(env.DEBUG=="true") or (env.DEBUG=="1") as $dbg |
 
 	($ARGS.positional | map(
-		sub("^\\s+";"") | sub("\\s+$";"") | sub("/$";"") |
-		select(length>0))) as $hide_pfx |
+		sub("^\\s+";"") | sub("\\s+$";"") |
+		select(length>0))) as $path_subst |
 
 	if $dbg then
 		debug("🐞debugging enabled") |
 		debug("🐞PATH_DISPLAY_DEPTH=\($pdd)") |
-		debug("🐞MAX_DEPTH=\($ENV.MAX_DEPTH)") |
-		debug("🐞ALLOW_XDEV=\($ENV.ALLOW_XDEV)") |
-		debug("🐞hide_pfx:", $hide_pfx)
+		debug("🐞MAX_DEPTH=\(env.MAX_DEPTH)") |
+		debug("🐞ALLOW_XDEV=\(env.ALLOW_XDEV)") |
+		debug("🐞path_subst:", $path_subst)
 	else . end |
 
 	[inputs] | map(
 	. as $raw |
-	(sub("/$";"") | sub("^\($ENV.HOME)/";"~/")) as $fqpn |
+	(
+		sub("/$";"") |
+		sub("^\(env.HOME)/";"~/")
+	) as $fqpn |
 
 	$fqpn | split("/")     as $fqpn_els |
 	$fqpn_els[-1]          as $item_name |
@@ -98,16 +101,18 @@ jq \
 		end | join("/")
 	) as $sub |
 
-	(reduce $hide_pfx[] as $pfx ($sub;
-		if startswith($pfx) then ltrimstr($pfx) else . end
-	)) as $sub |
+	reduce $path_subst[] as $subst ($sub;
+		sub( ($subst|split("|")|.[0]); ($subst|split("|")|.[1]))) |
+
+	sub("~/Library/CloudStorage/";"☁️/") |
+	sub("~/Library/Mobile Documents/com~apple~CloudDocs/";"☁️iCloud/") as $sub |
 
 	{
 		title: $item_name,
 		subtitle: $sub,
 		arg: $raw,
-		icon: { type: "fileicon", path: $fqpn },
-		quicklookurl: $fqpn,
+		icon: { type: "fileicon", path: $raw },
+		quicklookurl: $raw,
 		mods: {
 			cmd: {
 				variables: { action: "reveal" },
@@ -143,9 +148,9 @@ jq \
 				ctrl: { valid: false }
 			}
 		}] end)
-	}' --args "${HIDDEN_PREFIXES_ARR[@]}"
+	}' --args "${PATH_SUBST_ARR[@]}"
 
-if (( DEBUG == 1 )); then
+if _isTrue DEBUG ; then
 	ELAPSED=$(( (EPOCHREALTIME-START_TIME) * 1000))
 	printf >&2 '🐞%s completed in %.0f ms\n' "${0:t}" $ELAPSED
 fi

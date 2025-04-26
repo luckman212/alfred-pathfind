@@ -1,9 +1,16 @@
 # shellcheck disable=all
 
+[[ $PATHFIND_HELPER_FUNCTIONS_SOURCED == true ]] && return 0
+
 _inAlfred() { [[ -n $alfred_workflow_uid ]]; }
 
+_isTrue() {
+	local v=${(P)1}
+	[[ ${v:l} == (1|true|yes) ]]
+}
+
 _dbg() {
-	(( DEBUG == 1 )) || return 0
+	_isTrue DEBUG || return 0
 	echo >&2 "🐞$1"
 }
 
@@ -48,7 +55,7 @@ _argparse() {
 		[[ $chunk == "in:" ]] && in_md=1
 	done
 	[[ -n $chunk ]] && args+=("$chunk")
-	if (( DEBUG == 1 )); then
+	if _isTrue DEBUG ; then
 		argcount=$#args
 		_dbg "argparse: split as $argcount args"
 		for (( c=1; c<=argcount; c++ )); do
@@ -56,3 +63,5 @@ _argparse() {
 		done
 	fi
 }
+
+export PATHFIND_HELPER_FUNCTIONS_SOURCED=true
