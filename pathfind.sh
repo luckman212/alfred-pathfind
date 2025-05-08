@@ -86,12 +86,15 @@ else
 		FD_ARGS+=( --search-path "$pe" )
 	done
 fi
-if [[ -n $PATHFIND_EXCLUDE_PATHS ]]; then
-	PATHFIND_EXCLUDE_PATHS_ARR=("${(@f)PATHFIND_EXCLUDE_PATHS}")
-	for p in "${PATHFIND_EXCLUDE_PATHS_ARR[@]}"; do
+if [[ -n $PATHFIND_EXCLUDE ]]; then
+	setopt noglob
+	PATHFIND_EXCLUDE_ARR=("${(@f)PATHFIND_EXCLUDE}")
+	for p in "${PATHFIND_EXCLUDE_ARR[@]}"; do
 		pe=$(eval echo "$p")
+		_dbg "exclude: $pe"
 		FD_ARGS+=( --exclude "$pe" )
 	done
+	unsetopt noglob
 fi
 
 _filterWithGawk() {

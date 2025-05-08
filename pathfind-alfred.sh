@@ -119,7 +119,10 @@ jq \
 				variables: { action: "reveal" },
 				subtitle: "↩ reveal in Finder"
 			},
-			alt: { subtitle: "", valid: false },
+			alt: {
+				variables: { action: "file_nav" },
+				subtitle: "↩ enter Alfred file navigation",
+			},
 			"cmd+alt": {
 				variables: { action: "reveal_bg" },
 				subtitle: "↩ reveal in Finder (without closing Alfred)"
