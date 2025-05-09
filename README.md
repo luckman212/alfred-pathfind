@@ -57,7 +57,7 @@ After it's installed, you can type `pathfind <word1> [word2...]` from any shell 
 
 ## Prerequisites
 
-Alfred 5.5 or higher is required.
+Alfred 5.6.1 or higher is required.
 
 The workflow requires a few small binaries to work its magic:
 - `fd` for fast, multithreaded filesystem searching
