@@ -80,7 +80,7 @@ jq \
 		debug("🐞MAX_DEPTH=\(env.MAX_DEPTH)") |
 		debug("🐞ALLOW_XDEV=\(env.ALLOW_XDEV)") |
 		debug("🐞path_subst:", $path_subst)
-	else . end |
+	end |
 
 	[inputs] | map(
 	. as $raw |
@@ -112,6 +112,7 @@ jq \
 		title: $item_name,
 		subtitle: $sub,
 		arg: $raw,
+		type: "file:skipcheck",
 		icon: { type: "fileicon", path: $raw },
 		quicklookurl: $raw,
 		mods: {

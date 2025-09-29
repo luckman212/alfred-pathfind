@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>bundleid</key>
-	<string>com.alfredapp.luckman212.pathfind</string>
+	<string>com.luckman212.pathfind</string>
 	<key>connections</key>
 	<dict>
 		<key>16CD3811-386A-4E8D-B707-898E1E204EE7</key>
@@ -1141,7 +1141,7 @@ export WF_TITLE_OVERRIDE="$alfred_workflow_name (Files only)"
 			<key>config</key>
 			<dict>
 				<key>text</key>
-				<string>Search for '{query}' using {const:alfred_workflow_name}</string>
+				<string>Search for '{query.trim}' using {const:alfred_workflow_name}</string>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.trigger.fallback</string>
@@ -1287,7 +1287,7 @@ After it's installed, you can type `pathfind &lt;word1&gt; [word2...]` from any 
 
 ## Prerequisites
 
-Alfred 5.5 or higher is required.
+Alfred 5.6.1 or higher is required.
 
 The workflow requires a few small binaries to work its magic:
 - `fd` for fast, multithreaded filesystem searching
@@ -1692,7 +1692,7 @@ The workflow was inspired by [this post](https://www.alfredforum.com/topic/22886
 				<key>trim</key>
 				<false/>
 				<key>verticalsize</key>
-				<integer>3</integer>
+				<integer>6</integer>
 			</dict>
 			<key>description</key>
 			<string>Strings to replace in the displayed subtitles. Input two strings, separated by the | character, e.g. /Really/Long/Path/|/RLP/</string>
@@ -1811,10 +1811,8 @@ The workflow was inspired by [this post](https://www.alfredforum.com/topic/22886
 		<key>DEPS</key>
 		<string>fd gawk jq</string>
 	</dict>
-	<key>variablesdontexport</key>
-	<array/>
 	<key>version</key>
-	<string>1.4.3</string>
+	<string>1.5.1</string>
 	<key>webaddress</key>
 	<string>https://github.com/luckman212/alfred-pathfind</string>
 </dict>
