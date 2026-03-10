@@ -79,6 +79,7 @@ jq \
 		debug("🐞PATH_DISPLAY_DEPTH=\($pdd)") |
 		debug("🐞MAX_DEPTH=\(env.MAX_DEPTH)") |
 		debug("🐞ALLOW_XDEV=\(env.ALLOW_XDEV)") |
+		debug("🐞USE_GITIGNORE=\(env.USE_GITIGNORE)") |
 		debug("🐞path_subst:", $path_subst)
 	end |
 

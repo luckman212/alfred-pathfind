@@ -31,7 +31,11 @@ _getAlfredWorkflowCfg() {
 }
 
 case $1 in
-	-h|--help|'') echo "Usage: ${0##*/} <word1> [word2...]"; exit;;
+	-h|--help|'')
+		_inAlfred && exit 0
+		echo "Usage: ${0##*/} <word1> [word2...]"
+		exit
+		;;
 esac
 
 # if running from an external shell, populate environment from WF config
@@ -54,7 +58,7 @@ case $INCLUDE_HIDDEN in
 esac
 
 case $USE_GITIGNORE in
-	1|true) FD_ARGS+=( --ignore );;
+	1|true) FD_ARGS+=( --ignore --no-require-git );;
 	*) FD_ARGS+=( --no-ignore );;
 esac
 

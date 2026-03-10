@@ -1234,10 +1234,10 @@ export WF_TITLE_OVERRIDE="$alfred_workflow_name (Files only)"
 
 **PathFind** is a workflow that aims to quickly and thoroughly search your filesystem for files and folders matching keyword(s) in *any part* of the filename or enclosing path.
 
-This means that if you search for “annual report 2024”, both of the files below would appear in the results:
+This means that if you search for “annual report 2026”, both of the files below would appear in the results:
 
-- /Users/joe/Downloads/Annual **Report**s/for review/**2024**-version1.pdf
-- /Users/joe/Desktop/Shareholder **report** (**Annual**) - **2024**.docx
+- /Users/joe/Downloads/Annual **Report**s/for review/**2026**-version1.pdf
+- /Users/joe/Desktop/Shareholder **report** (**Annual**) - **2026**.docx
 
 Searches are case-insensitive, and the order in which you enter your search terms is not important. The search terms can be plain strings or [regular expressions](https://regex101.com/r/QmVP21/1). The workflow **does not rely on Spotlight** to provide its results.
 
@@ -1264,6 +1264,13 @@ For example, you might want to shorten a path like **~/Documents/Book Reports/20
 ```
 ~/Documents/Book Reports/2025/Biology 201|📕2025
 ```
+
+## 🐞 Bug with Exclude (but not _our_ bug)
+
+Due to a bug in `fd`, the **Exclude** feature does not always work as expected. You may want to read and subscribe to https://github.com/sharkdp/fd/issues/851 for updates on that. The main issue is that absolute paths (e.g. `/Users/joe/test/foo`) are not handled properly. There are 2 ways to work around this:
+
+1. Use relative paths: e.g. instead of `/Users/joe/test/foo` use just `test/foo`
+2. Use a `.gitignore` file and enable the **Respect .gitignore** checkbox
 
 ## Usage
 
@@ -1812,7 +1819,7 @@ The workflow was inspired by [this post](https://www.alfredforum.com/topic/22886
 		<string>fd gawk jq</string>
 	</dict>
 	<key>version</key>
-	<string>1.5.1</string>
+	<string>1.5.2</string>
 	<key>webaddress</key>
 	<string>https://github.com/luckman212/alfred-pathfind</string>
 </dict>
