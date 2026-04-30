@@ -79,7 +79,7 @@ brew install fd gawk jq
 
 ## ⚠️Potential Gotchas
 
-- Make sure your defined keywords do not conflict with any from Alfred's native Features > File Search area!
+- Make sure your defined trigger keywords don't conflict with any from Alfred's native Features > File Search area!
 - Enabling the **Follow symlinks** option can significantly slow down searches. If you need this option but experience poor performance, try adjusting **Max depth**, or use a smaller search scope (fewer folders, or more specific query)
 
 ## Inspiration
