@@ -8,6 +8,7 @@ if _isTrue DEBUG ; then
 	echo >&2 "🐞$alfred_workflow_name v${alfred_workflow_version}"
 	echo >&2 "🐞script \`${0:t}\` starting, args: $*"
 	echo >&2 "🐞macOS: $(sw_vers | awk 'NR>1 { print $2 }' | paste -sd'-' -)"
+	echo >&2 "🐞fd: $(fd --version)"
 fi
 
 # prereq check
@@ -80,6 +81,7 @@ jq \
 		debug("🐞MAX_DEPTH=\(env.MAX_DEPTH)") |
 		debug("🐞ALLOW_XDEV=\(env.ALLOW_XDEV)") |
 		debug("🐞USE_GITIGNORE=\(env.USE_GITIGNORE)") |
+		debug("🐞PATHFIND_ADHOC_EXCLUDE_CHAR=\(env.PATHFIND_ADHOC_EXCLUDE_CHAR)") |
 		debug("🐞path_subst:", $path_subst)
 	end |
 

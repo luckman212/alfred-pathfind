@@ -42,19 +42,29 @@ esac
 [[ -z $alfred_workflow_uid ]] && _getAlfredWorkflowCfg
 
 FD_ARGS=()
+AD_HOC_EXCLUDES=()
 MD_QUERY=()
 for a in "$@"; do
 	if [[ $a == "in:"* ]]; then
 		[[ ${a#in:} != "" ]] && MD_QUERY+=( 'kMDItemTextContent == "'${a#in:}'"c' '&&' )
 	else
-		SEARCH_KEYWORDS+=( "$a" )
+		if [[ -n $PATHFIND_ADHOC_EXCLUDE_CHAR ]] && [[ $a =~ ^${PATHFIND_ADHOC_EXCLUDE_CHAR} ]]; then
+			#ad-hoc exclusion
+			EXCLUDE_STR=${a[2,-1]}
+			if [[ -n $EXCLUDE_STR ]]; then
+				_dbg "ad-hoc exclude: $EXCLUDE_STR"
+				AD_HOC_EXCLUDES+=( "*${EXCLUDE_STR}*" )
+			fi
+		else
+			SEARCH_KEYWORDS+=( "$a" )
+		fi
 	fi
 done
 MD_QUERY[-1]=() # remove trailing '&&'
 
 case $INCLUDE_HIDDEN in
 	1|true) FD_ARGS+=( --hidden );;
-	*) FD_ARGS+=( --no-hidden);;
+	*) FD_ARGS+=( --no-hidden );;
 esac
 
 case $USE_GITIGNORE in
@@ -100,6 +110,9 @@ if [[ -n $PATHFIND_EXCLUDE ]]; then
 	done
 	unsetopt noglob
 fi
+for x in "${AD_HOC_EXCLUDES[@]}"; do
+	FD_ARGS+=( --exclude "$x" )
+done
 
 _filterWithGawk() {
 	printf '%s\0' "${SEARCH_KEYWORDS[@]}" >/private/tmp/pathfind_gawkfilter

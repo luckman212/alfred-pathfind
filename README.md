@@ -35,6 +35,12 @@ For example, you might want to shorten a path like **~/Documents/Book Reports/20
 ~/Documents/Book Reports/2025/Biology 201|📕2025
 ```
 
+## Ad-hoc Exclusions
+
+You can dynamically exclude files from the search results by selecting an ad-hoc exclusion marker from the configuration menu. If you have this feature enabled, placing that character at the beginning of a search term will exclude files containing it.
+
+⚠️ this feature is **case-sensitive only** for now, until [fd bug #2210](https://github.com/sharkdp/fd/issues/2210) is fixed upstream.
+
 ## 🐞 Bug with Exclude (but not _our_ bug)
 
 Due to a bug in `fd`, the **Exclude** feature does not always work as expected. You may want to read and subscribe to https://github.com/sharkdp/fd/issues/851 for updates on that. The main issue is that absolute paths (e.g. `/Users/joe/test/foo`) are not handled properly. There are 2 ways to work around this:
